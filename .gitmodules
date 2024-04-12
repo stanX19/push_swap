@@ -1,0 +1,4 @@
+[submodule "includes/libftprintf"]
+	path = includes/libftprintf
+	url = git@github.com:stanX19/ft_printf.git
+	branch = main

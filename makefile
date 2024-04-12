@@ -5,10 +5,15 @@ OBJDIR		= objs
 OBJDIRS		= $(sort $(dir $(OBJS)))
 OBJS		= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
 
-HEADER_DIR	=headers
-HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h')
-IFLAGS		= -I. -I$(HEADER_DIR)
-LINKERS		= 
+INCLUDE_DIR	= includes
+HEADER_DIR	= headers
+HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h') $(shell find $(INCLUDE_DIR) -name '*.h')
+HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
+
+IFLAGS		:= -I. $(HEADERS_INC)
+
+PRINTFLIB_DIR	= $(INCLUDE_DIR)/libftprintf
+PRINTFLIB	= $(PRINTFLIB_DIR)/libftprintf.a
 
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
@@ -17,15 +22,15 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= push_swap
-ARGV		= 5 4 3 2 1
+ARGV		= 
 
 run: all
 	./$(NAME) $(ARGV)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LINKERS) -o $(NAME)
+$(NAME): $(OBJS) $(PRINTFLIB)
+	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(PRINTFLIB) -o $(NAME)
 
 $(OBJDIRS):
 	mkdir -p $@
@@ -37,8 +42,11 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIRS)
 
 clean:
 	@$(RM) $(OBJS)
+
 fclean:	clean
+	make -C $(PRINTFLIB_DIR) fclean
 	@$(RM) $(NAME)
+	@$(RM) $(TESTDIR)
 	@$(RM) $(OBJDIRS)
 	@$(RM) ./a.out
 
@@ -47,5 +55,16 @@ re: fclean $(NAME)
 push:
 	@echo -n "Commit name: "; read name; make fclean;\
 	git add .; git commit -m "$$name"; git push;
+
+$(PRINTFLIB):
+	make -C $(PRINTFLIB_DIR) all
+
+$(PRINTFLIB_DIR):
+	touch .gitmodules
+	git submodule add --force git@github.com:stanX19/ft_printf.git $(PRINTFLIB_DIR)
+	git config -f .gitmodules submodule.$(PRINTFLIB_DIR).branch main
+	git submodule update --init --recursive --remote
+
+printf: $(PRINTFLIB_DIR)
 
 .PHONY: all clean fclean re bonus push
