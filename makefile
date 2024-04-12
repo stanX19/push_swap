@@ -22,14 +22,14 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= push_swap
-ARGV		= 
+ARGV		= 1 5 2 3 4
 
 run: all
 	./$(NAME) $(ARGV)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(PRINTFLIB)
+$(NAME): $(PRINTFLIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(PRINTFLIB) -o $(NAME)
 
 $(OBJDIRS):
@@ -56,7 +56,7 @@ push:
 	@echo -n "Commit name: "; read name; make fclean;\
 	git add .; git commit -m "$$name"; git push;
 
-$(PRINTFLIB):
+$(PRINTFLIB): $(PRINTFLIB_DIR)
 	make -C $(PRINTFLIB_DIR) all
 
 $(PRINTFLIB_DIR):
@@ -64,7 +64,5 @@ $(PRINTFLIB_DIR):
 	git submodule add --force git@github.com:stanX19/ft_printf.git $(PRINTFLIB_DIR)
 	git config -f .gitmodules submodule.$(PRINTFLIB_DIR).branch main
 	git submodule update --init --recursive --remote
-
-printf: $(PRINTFLIB_DIR)
 
 .PHONY: all clean fclean re bonus push
