@@ -21,8 +21,8 @@ typedef struct s_data
 }			t_data;
 
 t_data		*data_copy(t_data *data);
-void		*delete_data(t_data *data);
-t_data		*init_data(int argc, char **argv);
+void		delete_data(t_data *data);
+t_data		*init_data(int argc, const char **argv);
 
 void		sa(t_data *data);
 void		sb(t_data *data);
