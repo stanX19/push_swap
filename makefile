@@ -29,7 +29,7 @@ run: all
 
 all: $(NAME)
 
-$(NAME): $(PRINTFLIB) $(OBJS)
+$(NAME): $(PRINTFLIB) $(OBJDIRS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(PRINTFLIB) -o $(NAME)
 
 $(OBJDIRS):
