@@ -22,7 +22,7 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= push_swap
-ARGV		= 1 5 2 3 4
+ARGV		= 121  1312 321 12131
 
 run: all
 	./$(NAME) $(ARGV)
@@ -36,7 +36,7 @@ $(OBJDIRS):
 	mkdir -p $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) | $(OBJDIRS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 

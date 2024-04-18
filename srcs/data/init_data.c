@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/04/17 15:35:50 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/18 14:27:02 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	init_list_a(t_list *a, const char **tokens, int len)
 
 t_data	*init_data(int argc, const char **argv)
 {
-	t_data *ret;
+	t_data	*ret;
 
 	ret = (t_data *)malloc(sizeof(t_data));
 	if (!ret)
