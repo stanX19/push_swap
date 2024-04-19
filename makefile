@@ -12,8 +12,8 @@ HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
 IFLAGS		:= -I. $(HEADERS_INC)
 
-PRINTFLIB_DIR	= $(INCLUDE_DIR)/libftprintf
-PRINTFLIB	= $(PRINTFLIB_DIR)/libftprintf.a
+PRINTFLIB_DIR	= $(INCLUDE_DIR)/libft
+PRINTFLIB	= $(PRINTFLIB_DIR)/libft.a
 
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
