@@ -56,6 +56,10 @@ push:
 	@echo -n "Commit name: "; read name; make fclean;\
 	git add .; git commit -m "$$name"; git push;
 
+pull:
+	git pull
+	git submodule update --init --remote --recursive
+
 $(PRINTFLIB): $(PRINTFLIB_DIR)
 	make -C $(PRINTFLIB_DIR) all
 
