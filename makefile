@@ -10,27 +10,32 @@ HEADER_DIR	= headers
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h') $(shell find $(INCLUDE_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
-IFLAGS		:= -I. $(HEADERS_INC)
+LIBFT_DIR	= $(INCLUDE_DIR)/libft
+LIBFT	= $(LIBFT_DIR)/libft.a
 
-PRINTFLIB_DIR	= $(INCLUDE_DIR)/libft
-PRINTFLIB	= $(PRINTFLIB_DIR)/libft.a
+
+
+LIBS		= $(LIBFT)
+
+IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
+AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= push_swap
-ARGV		= 121  1312 321 12131
+ARGV		= 1 2 3 45 8
 
 run: all
 	./$(NAME) $(ARGV)
 
-all: $(NAME)
+$(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
 
-$(NAME): $(PRINTFLIB) $(OBJDIRS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(PRINTFLIB) -o $(NAME)
+all: $(NAME)
 
 $(OBJDIRS):
 	mkdir -p $@
@@ -44,7 +49,7 @@ clean:
 	@$(RM) $(OBJS)
 
 fclean:	clean
-	make -C $(PRINTFLIB_DIR) fclean
+	make -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME)
 	@$(RM) $(TESTDIR)
 	@$(RM) $(OBJDIRS)
@@ -56,17 +61,15 @@ push:
 	@echo -n "Commit name: "; read name; make fclean;\
 	git add .; git commit -m "$$name"; git push;
 
-pull:
-	git pull
-	git submodule update --init --remote --recursive
+$(LIBFT): $(LIBFT_DIR)
+	make -C $(LIBFT_DIR) all
 
-$(PRINTFLIB): $(PRINTFLIB_DIR)
-	make -C $(PRINTFLIB_DIR) all
-
-$(PRINTFLIB_DIR):
+$(LIBFT_DIR):
 	touch .gitmodules
-	git submodule add --force git@github.com:stanX19/ft_printf.git $(PRINTFLIB_DIR)
-	git config -f .gitmodules submodule.$(PRINTFLIB_DIR).branch main
+	git submodule add --force git@github.com:stanX19/libft.git $(LIBFT_DIR)
+	git config -f .gitmodules submodule.$(LIBFT_DIR).branch main
 	git submodule update --init --recursive --remote
+
+init_libft: $(LIBFT_DIR)
 
 .PHONY: all clean fclean re bonus push
