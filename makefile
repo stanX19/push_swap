@@ -61,10 +61,15 @@ push:
 	cd $(LIBFT_DIR); git add .; git commit -m "$$name"; git push;\
 	cd $(CWD); git add .; git commit -m "$$name"; git push;\
 
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+ifeq ($(BRANCH),HEAD)
+BRANCH := main
+endif
 pull:
 	git fetch --all
-	git checkout main
-	git reset --hard origin/main
+	git reset --hard $(BRANCH);
+	git checkout $(BRANCH);
+	git reset --hard origin/$(BRANCH);
 	git submodule update --init --remote --recursive
 
 $(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
