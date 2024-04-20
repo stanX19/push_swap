@@ -5,15 +5,14 @@ OBJDIR		= objs
 OBJDIRS		= $(sort $(dir $(OBJS)))
 OBJS		= $(subst $(SRCDIR),$(OBJDIR),$(subst .c,.o,$(SRCS)))
 
+CWD			:= $(shell pwd)
 INCLUDE_DIR	= includes
 HEADER_DIR	= headers
 HEADERS		:= $(shell find $(HEADER_DIR) -name '*.h') $(shell find $(INCLUDE_DIR) -name '*.h')
 HEADERS_INC	= $(addprefix -I,$(sort $(dir $(HEADERS))))
 
 LIBFT_DIR	= $(INCLUDE_DIR)/libft
-LIBFT	= $(LIBFT_DIR)/libft.a
-
-
+LIBFT		= $(LIBFT_DIR)/libft.a
 
 LIBS		= $(LIBFT)
 
@@ -27,7 +26,7 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= push_swap
-ARGV		= 1 2 3 45 8
+ARGV		= "213 1 23 1233 12312  213 1 24 1 213 21 312  312 321 3 3ewscsdd d12 123131"
 
 run: all
 	./$(NAME) $(ARGV)
@@ -41,7 +40,7 @@ $(OBJDIRS):
 	mkdir -p $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS)
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(HEADERS) $(LIBS)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 	@echo "$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)$(FLUSH)$(UP)"
 
@@ -59,9 +58,15 @@ re: fclean $(NAME)
 
 push:
 	@echo -n "Commit name: "; read name; make fclean;\
-	git add .; git commit -m "$$name"; git push;
+	cd $(LIBFT_DIR); git add .; git commit -m "$$name"; git push;\
+	cd $(CWD); git add .; git commit -m "$$name"; git push;\
 
-$(LIBFT): $(LIBFT_DIR)
+pull:
+	git fetch --all
+	git reset --hard origin/main
+	git submodule update --init --remote --recursive
+
+$(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
 	make -C $(LIBFT_DIR) all
 
 $(LIBFT_DIR):
@@ -72,4 +77,4 @@ $(LIBFT_DIR):
 
 init_libft: $(LIBFT_DIR)
 
-.PHONY: all clean fclean re bonus push
+.PHONY: all clean fclean re bonus push .c.o
