@@ -67,8 +67,7 @@ BRANCH := main
 endif
 pull:
 	git fetch --all
-	git reset --hard $(BRANCH);
-	git checkout $(BRANCH);
+	git checkout -f $(BRANCH);
 	git reset --hard origin/$(BRANCH);
 	git submodule update --init --remote --recursive
 
