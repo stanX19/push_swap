@@ -64,6 +64,7 @@ push:
 pull:
 	git fetch --all
 	git reset --hard origin/main
+	git reset --soft main
 	git submodule update --init --remote --recursive
 
 $(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
