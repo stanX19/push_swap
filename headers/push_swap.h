@@ -6,25 +6,16 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:26:03 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/23 15:09:36 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "ft_printf.h"
+# include "libft.h"
 # include "list.h"
 # include "node.h"
 # include "ps_enum.h"
-# include <errno.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <stdarg.h>
-# include <stdbool.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
 
 typedef struct s_data
 {

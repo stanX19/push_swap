@@ -6,36 +6,36 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/04/18 14:27:02 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/23 16:30:28 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	error(const char *error_type, const char *details, int ret)
+static int	error(const char *error_type, char *details, int ret)
 {
 	ft_printf("Error. %s: %s\n", error_type, details);
+	free(details);
 	return (ret);
 }
 
 static int	init_list_a(t_list *a, const char **tokens, int len)
 {
-	int	i;
-	int	val;
+	t_stringstream	*ss;
+	int				val;
 
-	i = 0;
-	while (i < len)
+	ss = ss_create_with_str(ft_tokens_join(tokens, len, " "));
+	while (ss_read_int(ss, &val))
 	{
-		val = ft_atoi(tokens[i]);
-		if (errno == ERANGE)
-			return (error("Integer out of range", tokens[i], -1));
-		if (errno == EINVAL)
-			return (error("Not an Integer", tokens[i], -1));
-		if (lst_find_val(a, val) != -1)
-			return (error("Repeating value", tokens[i], -1));
 		lst_append_val(a, val);
-		i++;
+		if (lst_find_val(a, val) != -1)
+			return (error("Repeating value", ft_itoa(val), -1));
 	}
+	if (errno == ERANGE)
+		return (error("Integer out of range", ft_itoa(val), -1));
+	if (errno == EINVAL)
+		return (error("Not an Integer", ss_get_prev_str(ss), -1));
+	ss_destroy(ss);
 	return (0);
 }
 
