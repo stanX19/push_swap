@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:16:34 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/20 17:16:58 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/23 13:44:49 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,20 @@ int	main(int argc, const char **argv)
 {
 	t_stringstream	*ss;
 	double			val;
+	char			*s;
 
 	if (argc < 2)
 		return (0);
-	ss = sstream_new(argv[1]);
+	ss = ss_new(argv[1]);
 	val = 0;
-	while (sstream_read_double(sstream_to_numeric(ss), &val))
-	{
+	while (ss_read_double(ss, &val))
 		ft_printf("%20f\n", val);
-		errno = 0;
+	if (!ss_eof(ss))
+	{
+		s = NULL;
+		ss_read_line(ss, &s, " ");
+		ft_printf("error: %s\n", s);
+		free(s);
 	}
-	sstream_destroy(ss);
+	ss_destroy(ss);
 }
