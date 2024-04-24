@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/04/24 16:37:23 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/24 16:44:55 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static inline int	handle_error()
 {
 	if (errno == 0)
 		return (0);
-	ft_printf("Error.");
+	ft_printf("Error\n");
 	return (-1);
 }
 
