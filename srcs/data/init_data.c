@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/04/24 16:44:55 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/27 13:06:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,12 @@ static int	init_list_a(t_list *a, const char **tokens, int len)
 	int				val;
 
 	ss = ss_create_use_provided(ft_tokens_join(tokens, len, " "));
-	while (ss_read_int(ss, &val))
+	while (errno == 0 && ss_read_int(ss, &val))
 	{
 		if (lst_find_val(a, val) != -1)
-		{
 			errno = -1;
-			break ;
-		}
 		lst_append_val(a, val);
 	}
-	if (errno == EINVAL && ss_eof(ss_read_line(ss, NULL, " \n\t")))
-		errno = 0;
 	ss_destroy(ss);
 	return (handle_error());
 }
