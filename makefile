@@ -26,7 +26,7 @@ UP			= \033[1A
 FLUSH		= \033[2K
 
 NAME		= push_swap
-ARGV		= "1 2 3 4   41 "
+ARGV		= "1 2 3 4   42"
 
 
 run: all

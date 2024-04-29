@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:16:34 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/24 13:29:21 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/29 21:58:47 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, const char **argv)
 	if (!data)
 		return (1);
 	print_list(data->a);
+	ft_putendl_fd("", 1);
 	delete_data(data);
 	return (0);
 }
