@@ -71,6 +71,7 @@ pull:
 	git checkout -f $(BRANCH);
 	git reset --hard origin/$(BRANCH);
 	git submodule update --init --remote --recursive
+	make -C $(LIBFT_DIR) pull
 
 $(LIBFT): $(LIBFT_DIR) $(shell find $(LIBFT_DIR) -name "*.c")
 	make -C $(LIBFT_DIR) all
