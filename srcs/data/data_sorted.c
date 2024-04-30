@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_list.c                                       :+:      :+:    :+:   */
+/*   data_sorted.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:20:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:48:50 by shatan           ###   ########.fr       */
+/*   Created: 2024/04/30 15:22:48 by shatan            #+#    #+#             */
+/*   Updated: 2024/04/30 15:22:48 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	lst_print(t_list *list)
+bool	data_sorted(t_data *data)
 {
-	t_node	*curr;
-
-	if (!list)
-	{
-		ft_printf("(NULL)");
-		return ;
-	}
-	curr = list->head;
-	if (!curr)
-	{
-		ft_printf("[]");
-		return ;
-	}
-	ft_printf("[");
-	while (curr->next != list->head)
-	{
-		ft_printf("%i, ", curr->val);
-		curr = curr->next;
-	}
-	ft_printf("%i]", curr->val);
+	return (lst_is_sorted(data->a) && lst_len(data->b) == 0);
 }

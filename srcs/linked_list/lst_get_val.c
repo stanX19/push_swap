@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_list.c                                       :+:      :+:    :+:   */
+/*   lst_get_val.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:20:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:48:50 by shatan           ###   ########.fr       */
+/*   Created: 2024/04/30 15:52:13 by shatan            #+#    #+#             */
+/*   Updated: 2024/04/30 15:55:07 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	lst_print(t_list *list)
+int	lst_get_val(t_list *lst, int idx)
 {
-	t_node	*curr;
+	t_node *curr;
 
-	if (!list)
-	{
-		ft_printf("(NULL)");
-		return ;
-	}
-	curr = list->head;
+	curr = lst->head;
 	if (!curr)
+		return (0);
+	while (idx > 0)
 	{
-		ft_printf("[]");
-		return ;
-	}
-	ft_printf("[");
-	while (curr->next != list->head)
-	{
-		ft_printf("%i, ", curr->val);
 		curr = curr->next;
+		idx--;
 	}
-	ft_printf("%i]", curr->val);
+	while (idx < 0)
+	{
+		curr = curr->prev;
+		idx++;
+	}
+	return (curr->val);
 }

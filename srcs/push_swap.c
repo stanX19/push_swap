@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:16:34 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 14:55:46 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/30 15:48:50 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	main(int argc, const char **argv)
 	data = init_data(argc, argv);
 	if (!data)
 		return (1);
-	print_list(data->a);
+	lst_print(data->a);
+	ft_putendl_fd("", 1);
+	data_sort(data);
+	lst_print(data->a);
 	ft_putendl_fd("", 1);
 	delete_data(data);
 	return (0);

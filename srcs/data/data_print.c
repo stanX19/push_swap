@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_list.c                                       :+:      :+:    :+:   */
+/*   data_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 14:20:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:48:50 by shatan           ###   ########.fr       */
+/*   Created: 2024/04/30 15:47:24 by shatan            #+#    #+#             */
+/*   Updated: 2024/04/30 17:00:43 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "push_swap.h"
 
-void	lst_print(t_list *list)
-{
-	t_node	*curr;
 
-	if (!list)
-	{
-		ft_printf("(NULL)");
-		return ;
-	}
-	curr = list->head;
-	if (!curr)
-	{
-		ft_printf("[]");
-		return ;
-	}
-	ft_printf("[");
-	while (curr->next != list->head)
-	{
-		ft_printf("%i, ", curr->val);
-		curr = curr->next;
-	}
-	ft_printf("%i]", curr->val);
+void	data_print(t_data *data)
+{
+	ft_printf("a: ");
+	lst_print(data->a);
+	ft_printf("\t\tb: ");
+	lst_print(data->b);
+	ft_printf("\n");
+	usleep(200000);
 }
