@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:16:53 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:16:54 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/30 15:01:33 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	rrb(t_data *data)
 {
+	ft_printf("rrb\n");
 	lst_rotate_foward(data->b);
 }

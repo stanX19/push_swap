@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:16:45 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:16:45 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/30 15:01:55 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	sa(t_data *data)
 {
+	ft_printf("sa\n");
 	lst_swap_first_2(data->a);
 }

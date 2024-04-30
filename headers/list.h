@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:26:13 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/30 14:42:58 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		lst_rotate_foward(t_list *list);
 bool		lst_is_sorted(t_list *list);
 t_list		*lst_copy(t_list *list);
 t_list		*lst_new(void);
+size_t		lst_len(t_list *list);
 void		lst_delete(t_list *list);
 void		print_list(t_list *list);
 int			lst_find_val(t_list *lst, int val);

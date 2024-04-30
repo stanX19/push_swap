@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/04/29 23:10:08 by stan             ###   ########.fr       */
+/*   Updated: 2024/04/30 14:54:51 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@ static int	init_list_a(t_list *a, const char **tokens, int len)
 {
 	t_stringstream	*ss;
 	int				val;
+	char			*str;
 
-	ss = ss_create_use_provided(ft_tokens_join(tokens, len, " "));
+	str = ft_tokens_join(tokens, len, " ");
+	ss = ss_create_use_provided(str);
 	while (errno == 0 && ss_read_int(ss, &val))
 	{
+		if (!ft_isspace_or_null(ss_peek(ss)))
+			errno = EINVAL;
 		if (lst_find_val(a, val) != -1)
 			errno = EINVAL;
 		lst_append_val(a, val);
 	}
 	ss_destroy(ss);
-	if (errno == 0)
+	if (errno == 0 && lst_len(a) > 0)
 		return 0;
-	ft_printf("Error %i\n", errno);
+	ft_printf("Error\n");
 	return (-1);
 }
 

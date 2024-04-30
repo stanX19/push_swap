@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:19 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:17:19 by shatan           ###   ########.fr       */
+/*   Updated: 2024/04/30 15:01:23 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	pb(t_data *data)
 {
+	ft_printf("pb\n");
 	lst_push_front(data->b, lst_pop_front(data->a));
 }
