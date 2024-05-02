@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/02 20:07:16 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/02 22:29:22 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ int	get_largest_idx(t_list *list, int reject_val)
 	return (ret);
 }
 
-static void	rotate_to_top(t_data *data, int idx, int len)
+static void	rotate_to_top(t_data *data, int *target_idx, int *largest_idx, int len)
 {
 	int	vector;
 
-	if (idx > len / 2)
-		vector = (len - idx);
+	if (*target_idx > len / 2)
+		vector = (len - *target_idx);
 	else
-		vector = -idx;
+		vector = -*target_idx;
 	while (vector > 0)
 	{
 		rra(data);
@@ -59,79 +59,87 @@ static void	rotate_to_top(t_data *data, int idx, int len)
 		ra(data);
 		vector++;
 	}
+	if (*largest_idx >= *target_idx)
+		*largest_idx -= *target_idx;
+	else
+		*largest_idx = len - (*target_idx - *largest_idx);
+	*target_idx = 0;
+	*largest_idx %= len;
 }
 
-static void	update_largest(t_list *a, int *target_idx, int *largest,
-		int *largest_idx)
+bool	idx_is_inorder(int idx1, int idx2, int len)
 {
-	if (*target_idx < 0)
-		return ;
-	if (*target_idx + 1 != *largest_idx && !(lst_len(a) - *target_idx == 1
-			&& *largest_idx == 0))
-		return ;
+	return (idx1 + 1 == idx2 || (len - idx1 == 1 && idx2 == 0));
+}
+
+bool	idx_is_incident(int idx1, int idx2, int len)
+{
+	return (ft_abs(idx1 - idx2) == 1 || (len - idx2 == 1 && idx1 == 0));
+}
+
+static void	update_largest(t_list *a, int *target_idx, int *largest_idx)
+{
 	*largest_idx = *target_idx;
-	*largest = lst_get_val(a, *largest_idx);
-	*target_idx = get_largest_idx(a, *largest - 1);
-	update_largest(a, target_idx, largest, largest_idx);
+	*target_idx = get_largest_idx(a, lst_get_val(a, *largest_idx) - 1);
 }
 
 static void	insertion_sort(t_data *data)
 {
-	int	largest;
 	int	largest_idx;
-	int	len;
-	int	state;
 	int	target_idx;
 
-	len = lst_len(data->a);
-	largest_idx = get_largest_idx(data->a, INT_MAX);
-	largest = lst_get_val(data->a, largest_idx);
-	printf("largest = %i\n", largest);
-	state = 0;
-	while (!data_sorted(data))
+	target_idx = get_largest_idx(data->a, INT_MAX);
+	while (!data_sorted(data) && target_idx >= 0)
 	{
-		if (state == 0)
+		update_largest(data->a, &target_idx, &largest_idx);
+		data_print(data);
+		printf("target_idx = %i; largest_idx = %i\n", target_idx, largest_idx);
+		if (target_idx < 0 || idx_is_inorder(target_idx, largest_idx, lst_len(data->a)))
 		{
-			target_idx = get_largest_idx(data->a, largest - 1);
-			update_largest(data->a, &target_idx, &largest, &largest_idx);
-			if (target_idx < 0)
-			{
-				target_idx = largest_idx;
-			}
-			printf("target_idx = %i\n", target_idx);
-			// state 1
-			// make target on the top
-			rotate_to_top(data, target_idx, len);
-			if (largest_idx >= target_idx)
-				largest_idx -= target_idx;
-			else
-				largest_idx = len - (target_idx - largest_idx);
+			if (target_idx > 0)
+				rra(data);
 			target_idx = 0;
-			largest_idx %= len;
-			// force largest idx to be positive
-			// while (largest_idx < 0)
-			// 	largest_idx += len;
-			data_print(data);
-			state = 1;
+			continue;
 		}
-		else if (state == 1)
+		// state 1
+		// make target on the top
+		if (target_idx == 1 && largest_idx == 0)
 		{
-			// state 2
-			// push to b
-			pb(data);
-			largest_idx -= 1;
-			data_print(data);
-			// rotate such that prev largest is at top of a
-			rotate_to_top(data, largest_idx, len - 1);
-			data_print(data);
-			// push back to a
-			pa(data);
-			data_print(data);
-			// overwrite largest data, repeat
-			largest_idx = 0;
-			largest = lst_get_val(data->a, 0);
-			state = 0;
+			sa(data);
+			ft_int_swap(&target_idx, &largest_idx);
+			continue ;
 		}
+		if (idx_is_incident(target_idx, largest_idx, lst_len(data->a)))
+		{
+			if (largest_idx > target_idx)
+				ft_int_swap(&target_idx, &largest_idx);
+			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
+			sa(data);
+			target_idx = 0;
+			continue ;
+		}
+		rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
+		data_print(data);
+		if (data_sorted(data))
+			break ;
+		if (target_idx == 1 && largest_idx == 0)
+		{
+			sa(data);
+			ft_int_swap(&target_idx, &largest_idx);
+			continue ;
+		}
+		// state 2
+		// push to b
+		pb(data);
+		largest_idx -= 1;
+		data_print(data);
+		// rotate such that prev largest is at top of a
+		rotate_to_top(data, &largest_idx, &target_idx, lst_len(data->a));
+		data_print(data);
+		// push back to a
+		pa(data);
+		data_print(data);
+		target_idx = 0;
 	}
 }
 
