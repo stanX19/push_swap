@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:20:22 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/04 13:13:51 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,19 @@ bool	idx_is_inorder(int idx1, int idx2, int len)
 	return (idx1 + 1 == idx2 || (len - idx1 == 1 && idx2 == 0));
 }
 
-bool	idx_is_incident(int idx1, int idx2, int len)
+int		idx_distance(int idx1, int idx2, int len)
 {
-	return (ft_abs(idx1 - idx2) == 1 || (len - idx2 == 1 && idx1 == 0));
+	if (idx1 > idx2)
+		ft_int_swap(&idx1, &idx2);
+	return (ft_min(idx2 - idx1, ((len - idx2) + idx1)));
+}
+
+int		idx_rel_pos(int idx_from, int idx_to, int len)
+{
+	if (idx_from < idx_to)
+		return (idx_to - idx_from);
+	else
+		return (idx_to + len - idx_from);
 }
 
 static void	update_largest(t_list *a, int *target_idx, int *largest_idx)
@@ -92,53 +102,50 @@ static void	insertion_sort(t_data *data)
 	while (!data_sorted(data) && target_idx >= 0)
 	{
 		update_largest(data->a, &target_idx, &largest_idx);
-		data_print(data);
 		printf("target_idx = %i; largest_idx = %i\n", target_idx, largest_idx);
-		if (target_idx < 0 || idx_is_inorder(target_idx, largest_idx, lst_len(data->a)))
+		if (target_idx < 0)
 		{
-			if (target_idx > 0)
-				execute_operation(data, RRA);
-			target_idx = 0;
+			largest_idx = get_largest_idx(data->a, INT_MAX);
+			target_idx = (largest_idx + 1) % lst_len(data->a);
+			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
+			break ;
+		}
+		if (idx_is_inorder(target_idx, largest_idx, lst_len(data->a)))
+		{
 			continue;
 		}
 		// state 1
 		// make target on the top
-		if (target_idx == 1 && largest_idx == 0)
+		printf("idx_distance = %i\n", idx_distance(target_idx, largest_idx, lst_len(data->a)));
+		printf("idx_rel_pos = %i\n", idx_rel_pos(target_idx, largest_idx, lst_len(data->a)));
+		if (idx_rel_pos(target_idx, largest_idx, lst_len(data->a)) == 2)
 		{
+			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
 			execute_operation(data, SA);
-			ft_int_swap(&target_idx, &largest_idx);
+			target_idx = 0;
 			continue ;
 		}
-		if (idx_is_incident(target_idx, largest_idx, lst_len(data->a)))
+		if (idx_distance(target_idx, largest_idx, lst_len(data->a)) == 1)
 		{
-			if (largest_idx > target_idx)
+			if (idx_rel_pos(target_idx, largest_idx, lst_len(data->a)) > 0)
 				ft_int_swap(&target_idx, &largest_idx);
 			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
 			execute_operation(data, SA);
 			target_idx = 0;
 			continue ;
 		}
+		
 		rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-		data_print(data);
 		if (data_sorted(data))
 			break ;
-		if (target_idx == 1 && largest_idx == 0)
-		{
-			execute_operation(data, SA);
-			ft_int_swap(&target_idx, &largest_idx);
-			continue ;
-		}
 		// state 2
 		// push to b
 		execute_operation(data, PB);
 		largest_idx -= 1;
-		data_print(data);
 		// rotate such that prev largest is at top of a
 		rotate_to_top(data, &largest_idx, &target_idx, lst_len(data->a));
-		data_print(data);
 		// push back to a
 		execute_operation(data, PA);
-		data_print(data);
 		target_idx = 0;
 	}
 }

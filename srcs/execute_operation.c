@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/04 12:27:55 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/04 12:34:46 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static const t_op_dict	*get_op_dict(void)
 	{RRA, rra, "rra"},
 	{RRB, rrb, "rrb"},
 	{RRR, rrr, "rrr"},
-	{NULL, NULL, NULL},
+	{0, NULL, NULL},
 	};
 
 	return (op_dict);
@@ -34,8 +34,8 @@ static const t_op_dict	*get_op_dict(void)
 
 void	execute_operation(t_data *data, t_op_enum op_key)
 {
-	t_op_dict	*op_dict;
-	int			idx;
+	const t_op_dict	*op_dict;
+	int				idx;
 
 	op_dict = get_op_dict();
 	idx = 0;
@@ -44,7 +44,8 @@ void	execute_operation(t_data *data, t_op_enum op_key)
 		if (op_dict[idx].key == op_key)
 		{
 			op_dict[idx].func(data);
-			ft_printf("%s\n", op_dict[idx].str);
+			ft_printf("%4s |\t", op_dict[idx].str);
+			data_print(data);
 			return ;
 		}
 		idx++;
@@ -54,8 +55,8 @@ void	execute_operation(t_data *data, t_op_enum op_key)
 
 void	execute_operation_str(t_data *data, const char *op_str)
 {
-	t_op_dict	*op_dict;
-	int			idx;
+	const t_op_dict	*op_dict;
+	int				idx;
 
 	op_dict = get_op_dict();
 	idx = 0;
