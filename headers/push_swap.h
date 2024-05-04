@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:49:03 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:23:08 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,31 @@
 # include "libft.h"
 # include "list.h"
 # include "node.h"
-# include "ps_enum.h"
 
 typedef struct s_data
 {
-	t_list	*a;
-	t_list	*b;
-}			t_data;
+	t_list		*a;
+	t_list		*b;
+}				t_data;
 
-t_data		*data_copy(t_data *data);
-void		delete_data(t_data *data);
-t_data		*init_data(int argc, const char **argv);
-bool		data_sorted(t_data *data);
-void		data_sort(t_data *data);
-void		data_print(t_data *data);
+t_data			*data_copy(t_data *data);
+void			delete_data(t_data *data);
+t_data			*init_data(int argc, const char **argv);
+bool			data_sorted(t_data *data);
+void			data_sort(t_data *data);
+void			data_print(t_data *data);
 
-void		sa(t_data *data);
-void		sb(t_data *data);
-void		ss(t_data *data);
-void		pa(t_data *data);
-void		pb(t_data *data);
-void		ra(t_data *data);
-void		rb(t_data *data);
-void		rr(t_data *data);
-void		rra(t_data *data);
-void		rrb(t_data *data);
-void		rrr(t_data *data);
+void			sa(t_data *data);
+void			sb(t_data *data);
+void			ss(t_data *data);
+void			pa(t_data *data);
+void			pb(t_data *data);
+void			ra(t_data *data);
+void			rb(t_data *data);
+void			rr(t_data *data);
+void			rra(t_data *data);
+void			rrb(t_data *data);
+void			rrr(t_data *data);
 
 /*
 sa  : swap a
@@ -71,4 +70,29 @@ rrb : reverse rotate b
 		element becomes the first one.
 rrr : rra and rrb at the same time.
 */
+
+typedef enum e_op_enum
+{
+	SA,
+	SB,
+	SS,
+	PA,
+	PB,
+	RA,
+	RB,
+	RR,
+	RRA,
+	RRB,
+	RRR,
+}				t_op_enum;
+
+typedef struct s_op_dict
+{
+	t_op_enum	key;
+	void		(*func)(t_data *);
+	const char	*str;
+}				t_op_dict;
+
+void			execute_operation(t_data *data, t_op_enum op_key);
+
 #endif // PUSH_SWAP

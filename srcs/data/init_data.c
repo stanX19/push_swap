@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/04/30 14:54:51 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:28:18 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	init_list_a(t_list *a, const char **tokens, int len)
 	}
 	ss_destroy(ss);
 	if (errno == 0 && lst_len(a) > 0)
-		return 0;
+		return (0);
 	ft_printf("Error\n");
 	return (-1);
 }

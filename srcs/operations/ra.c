@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ra.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:15 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:01:25 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:19:10 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	ra(t_data *data)
 {
-	ft_printf("ra\n");
 	lst_rotate_backward(data->a);
 }

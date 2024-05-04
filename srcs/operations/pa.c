@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pa.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:22 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:01:18 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:19:03 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	pa(t_data *data)
 {
-	ft_printf("pa\n");
 	lst_push_front(data->a, lst_pop_front(data->b));
 }

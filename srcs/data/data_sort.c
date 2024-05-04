@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/02 22:29:22 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/04 12:20:22 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static void	rotate_to_top(t_data *data, int *target_idx, int *largest_idx, int l
 		vector = -*target_idx;
 	while (vector > 0)
 	{
-		rra(data);
+		execute_operation(data, RRA);
 		vector--;
 	}
 	while (vector < 0)
 	{
-		ra(data);
+		execute_operation(data, RA);
 		vector++;
 	}
 	if (*largest_idx >= *target_idx)
@@ -97,7 +97,7 @@ static void	insertion_sort(t_data *data)
 		if (target_idx < 0 || idx_is_inorder(target_idx, largest_idx, lst_len(data->a)))
 		{
 			if (target_idx > 0)
-				rra(data);
+				execute_operation(data, RRA);
 			target_idx = 0;
 			continue;
 		}
@@ -105,7 +105,7 @@ static void	insertion_sort(t_data *data)
 		// make target on the top
 		if (target_idx == 1 && largest_idx == 0)
 		{
-			sa(data);
+			execute_operation(data, SA);
 			ft_int_swap(&target_idx, &largest_idx);
 			continue ;
 		}
@@ -114,7 +114,7 @@ static void	insertion_sort(t_data *data)
 			if (largest_idx > target_idx)
 				ft_int_swap(&target_idx, &largest_idx);
 			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			sa(data);
+			execute_operation(data, SA);
 			target_idx = 0;
 			continue ;
 		}
@@ -124,20 +124,20 @@ static void	insertion_sort(t_data *data)
 			break ;
 		if (target_idx == 1 && largest_idx == 0)
 		{
-			sa(data);
+			execute_operation(data, SA);
 			ft_int_swap(&target_idx, &largest_idx);
 			continue ;
 		}
 		// state 2
 		// push to b
-		pb(data);
+		execute_operation(data, PB);
 		largest_idx -= 1;
 		data_print(data);
 		// rotate such that prev largest is at top of a
 		rotate_to_top(data, &largest_idx, &target_idx, lst_len(data->a));
 		data_print(data);
 		// push back to a
-		pa(data);
+		execute_operation(data, PA);
 		data_print(data);
 		target_idx = 0;
 	}

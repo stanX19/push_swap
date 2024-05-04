@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   data_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:47:24 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 17:00:43 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:28:02 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
-
 
 void	data_print(t_data *data)
 {

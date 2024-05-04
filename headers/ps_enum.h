@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ps_enum.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:25:57 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:25:57 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/04 12:17:58 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PS_ENUM_H
 # define PS_ENUM_H
 
+// abandoned, do not use
 typedef enum e_operations
 {
 	SA = (1 << 0),
