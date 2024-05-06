@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_operation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/04 12:34:46 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/06 12:53:57 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static const t_op_dict	*get_op_dict(void)
 	return (op_dict);
 }
 
-void	execute_operation(t_data *data, t_op_enum op_key)
+void	execute_operation(t_data *data, t_op_enum op_key, bool print)
 {
 	const t_op_dict	*op_dict;
 	int				idx;
@@ -44,7 +44,8 @@ void	execute_operation(t_data *data, t_op_enum op_key)
 		if (op_dict[idx].key == op_key)
 		{
 			op_dict[idx].func(data);
-			ft_printf("%4s |\t", op_dict[idx].str);
+			if (print)
+				ft_printf("%4s |\t", op_dict[idx].str);
 			data_print(data);
 			return ;
 		}

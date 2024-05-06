@@ -3,154 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   data_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 13:13:51 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/06 13:15:40 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_largest_idx(t_list *list, int reject_val)
+typedef struct s_q_node
 {
-	t_list	*cpy;
-	int		ret;
-	int		idx;
-	int		len;
-	int		max_val;
+	t_data			*data;
+	int				history[5000];
+	int				idx;
+	struct s_q_node	*next;
+}					t_q_node;
 
-	cpy = lst_copy(list);
-	ret = -1;
-	idx = 0;
-	len = lst_len(cpy);
-	max_val = 0;
-	while (idx < len)
+typedef struct s_queue
+{
+	t_q_node		*head;
+	t_q_node		*back;
+}					t_queue;
+
+t_queue	*new_queue(void)
+{
+	t_queue	*q;
+
+	q = (t_queue *)malloc(sizeof(t_queue));
+	q->head = NULL;
+	q->back = NULL;
+	return (q);
+}
+
+t_q_node	*queue_pop(t_queue *q)
+{
+	t_q_node	*ret;
+
+	ret = q->head;
+	if (q->head)
 	{
-		if (cpy->head->val <= reject_val && cpy->head->val > max_val)
-		{
-			ret = idx;
-			max_val = cpy->head->val;
-		}
-		lst_rotate_backward(cpy);
-		idx++;
+		q->head = q->head->next;
+		if (q->head == NULL)
+			q->back = NULL;
+		ret->next = NULL;
 	}
-	lst_delete(cpy);
-	// if (ret > len / 2)
-	// 	ret = ret - len;
 	return (ret);
 }
 
-static void	rotate_to_top(t_data *data, int *target_idx, int *largest_idx, int len)
+void	queue_push(t_queue *q, t_q_node *node)
 {
-	int	vector;
-
-	if (*target_idx > len / 2)
-		vector = (len - *target_idx);
-	else
-		vector = -*target_idx;
-	while (vector > 0)
-	{
-		execute_operation(data, RRA);
-		vector--;
+	if (q->head != NULL){
+		q->back->next = node;
+		q->back = node;
 	}
-	while (vector < 0)
-	{
-		execute_operation(data, RA);
-		vector++;
+	else {
+		q->head = node;
+		q->back = node;
 	}
-	if (*largest_idx >= *target_idx)
-		*largest_idx -= *target_idx;
-	else
-		*largest_idx = len - (*target_idx - *largest_idx);
-	*target_idx = 0;
-	*largest_idx %= len;
+	node->next = NULL;
 }
 
-bool	idx_is_inorder(int idx1, int idx2, int len)
+void	bfs(t_data *data)
 {
-	return (idx1 + 1 == idx2 || (len - idx1 == 1 && idx2 == 0));
-}
-
-int		idx_distance(int idx1, int idx2, int len)
-{
-	if (idx1 > idx2)
-		ft_int_swap(&idx1, &idx2);
-	return (ft_min(idx2 - idx1, ((len - idx2) + idx1)));
-}
-
-int		idx_rel_pos(int idx_from, int idx_to, int len)
-{
-	if (idx_from < idx_to)
-		return (idx_to - idx_from);
-	else
-		return (idx_to + len - idx_from);
-}
-
-static void	update_largest(t_list *a, int *target_idx, int *largest_idx)
-{
-	*largest_idx = *target_idx;
-	*target_idx = get_largest_idx(a, lst_get_val(a, *largest_idx) - 1);
-}
-
-static void	insertion_sort(t_data *data)
-{
-	int	largest_idx;
-	int	target_idx;
-
-	target_idx = get_largest_idx(data->a, INT_MAX);
-	while (!data_sorted(data) && target_idx >= 0)
-	{
-		update_largest(data->a, &target_idx, &largest_idx);
-		printf("target_idx = %i; largest_idx = %i\n", target_idx, largest_idx);
-		if (target_idx < 0)
-		{
-			largest_idx = get_largest_idx(data->a, INT_MAX);
-			target_idx = (largest_idx + 1) % lst_len(data->a);
-			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			break ;
-		}
-		if (idx_is_inorder(target_idx, largest_idx, lst_len(data->a)))
-		{
-			continue;
-		}
-		// state 1
-		// make target on the top
-		printf("idx_distance = %i\n", idx_distance(target_idx, largest_idx, lst_len(data->a)));
-		printf("idx_rel_pos = %i\n", idx_rel_pos(target_idx, largest_idx, lst_len(data->a)));
-		if (idx_rel_pos(target_idx, largest_idx, lst_len(data->a)) == 2)
-		{
-			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			execute_operation(data, SA);
-			target_idx = 0;
-			continue ;
-		}
-		if (idx_distance(target_idx, largest_idx, lst_len(data->a)) == 1)
-		{
-			if (idx_rel_pos(target_idx, largest_idx, lst_len(data->a)) > 0)
-				ft_int_swap(&target_idx, &largest_idx);
-			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			execute_operation(data, SA);
-			target_idx = 0;
-			continue ;
-		}
-		
-		rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-		if (data_sorted(data))
-			break ;
-		// state 2
-		// push to b
-		execute_operation(data, PB);
-		largest_idx -= 1;
-		// rotate such that prev largest is at top of a
-		rotate_to_top(data, &largest_idx, &target_idx, lst_len(data->a));
-		// push back to a
-		execute_operation(data, PA);
-		target_idx = 0;
-	}
+	t_q_node	*queue;
 }
 
 void	data_sort(t_data *data)
 {
-	insertion_sort(data);
+	bfs(data);
 }

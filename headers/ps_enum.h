@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ps_enum.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:25:57 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:17:58 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/06 12:48:28 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PS_ENUM_H
 # define PS_ENUM_H
 
-// abandoned, do not use
-typedef enum e_operations
+typedef enum e_op_enum
 {
 	SA = (1 << 0),
 	SB = (1 << 1),
@@ -28,7 +27,7 @@ typedef enum e_operations
 	RRB = (1 << 9),
 	RRR = (1 << 10),
 	ALL_OP = 0b11111111111
-}					t_operations;
+}					t_op_enum;
 
 /* Not allowed:
 	- undo operation

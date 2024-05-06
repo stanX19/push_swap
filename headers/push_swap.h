@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:23:08 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/06 12:48:56 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft.h"
 # include "list.h"
 # include "node.h"
+# include "ps_enum.h"
 
 typedef struct s_data
 {
@@ -70,21 +71,6 @@ rrb : reverse rotate b
 		element becomes the first one.
 rrr : rra and rrb at the same time.
 */
-
-typedef enum e_op_enum
-{
-	SA,
-	SB,
-	SS,
-	PA,
-	PB,
-	RA,
-	RB,
-	RR,
-	RRA,
-	RRB,
-	RRR,
-}				t_op_enum;
 
 typedef struct s_op_dict
 {
