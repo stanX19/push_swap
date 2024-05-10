@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ps_enum.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:25:57 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/06 12:48:28 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/10 13:49:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef enum e_op_enum
 	RRA = (1 << 8),
 	RRB = (1 << 9),
 	RRR = (1 << 10),
+	MAX_OP = RRR,
 	ALL_OP = 0b11111111111
 }					t_op_enum;
 
@@ -54,10 +55,10 @@ typedef enum e_allow
 	SA_ALLOW = ALL_OP ^ SA_BAN,
 	SB_ALLOW = ALL_OP ^ SB_BAN,
 	SS_ALLOW = ALL_OP ^ SS_BAN,
-	PA_ALLOW = PB,
-	PB_ALLOW = PA,
-	RA_ALLOW = RB | RRA | RR | RRR,
-	RB_ALLOW = RA | RRB | RR | RRR,
+	PA_ALLOW = ALL_OP ^ PB_BAN,
+	PB_ALLOW = ALL_OP ^ PA_BAN,
+	RA_ALLOW = RB | RR | RRR,
+	RB_ALLOW = RA | RR | RRR,
 	RR_ALLOW = RRA | RRB | RRR,
 	RRA_ALLOW = RRB | RA | RRR | RR,
 	RRB_ALLOW = RRA | RB | RRR | RR,

@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/05/04 12:28:18 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/10 14:17:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_data	*init_data(int argc, const char **argv)
 {
 	t_data	*ret;
 
-	ret = (t_data *)malloc(sizeof(t_data));
+	ret = (t_data *)ft_calloc(sizeof(t_data), 1);
 	if (!ret)
 		return (ret);
 	ret->a = lst_new();
@@ -49,5 +49,6 @@ t_data	*init_data(int argc, const char **argv)
 		delete_data(ret);
 		ret = NULL;
 	}
+	ret->possibility = SA | PA | PB | RA | RRA;//ALL_OP;// - RB - RRB - RRR - RR - SB - PA;
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_operation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/06 12:53:57 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/10 14:04:55 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ void	execute_operation(t_data *data, t_op_enum op_key, bool print)
 		{
 			op_dict[idx].func(data);
 			if (print)
+			{
 				ft_printf("%4s |\t", op_dict[idx].str);
-			data_print(data);
+				data_print(data);
+			}
 			return ;
 		}
 		idx++;

@@ -8,6 +8,13 @@
 		"unordered_map": "c",
 		"vector": "c",
 		"string_view": "c",
-		"initializer_list": "c"
+		"initializer_list": "c",
+		"*.tcc": "c",
+		"functional": "c",
+		"istream": "c",
+		"limits": "c",
+		"ostream": "c",
+		"sstream": "c",
+		"streambuf": "c"
 	}
 }

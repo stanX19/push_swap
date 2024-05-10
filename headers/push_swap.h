@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/06 12:48:56 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/10 13:52:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ typedef struct s_data
 {
 	t_list		*a;
 	t_list		*b;
+	int			history[5000];
+	int			idx;
+	int			possibility;
 }				t_data;
 
 t_data			*data_copy(t_data *data);
@@ -79,6 +82,6 @@ typedef struct s_op_dict
 	const char	*str;
 }				t_op_dict;
 
-void			execute_operation(t_data *data, t_op_enum op_key);
+void			execute_operation(t_data *data, t_op_enum op_key, bool print);
 
 #endif // PUSH_SWAP
