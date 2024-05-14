@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:23:08 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 14:24:07 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,17 @@ bool			data_sorted(t_data *data);
 void			data_sort(t_data *data);
 void			data_print(t_data *data);
 
-void			sa(t_data *data);
-void			sb(t_data *data);
-void			ss(t_data *data);
-void			pa(t_data *data);
-void			pb(t_data *data);
-void			ra(t_data *data);
-void			rb(t_data *data);
-void			rr(t_data *data);
-void			rra(t_data *data);
-void			rrb(t_data *data);
-void			rrr(t_data *data);
+t_data			*sa(t_data *data);
+t_data			*sb(t_data *data);
+t_data			*ss(t_data *data);
+t_data			*pa(t_data *data);
+t_data			*pb(t_data *data);
+t_data			*ra(t_data *data);
+t_data			*rb(t_data *data);
+t_data			*rr(t_data *data);
+t_data			*rra(t_data *data);
+t_data			*rrb(t_data *data);
+t_data			*rrr(t_data *data);
 
 /*
 sa  : swap a
@@ -89,10 +89,10 @@ typedef enum e_op_enum
 typedef struct s_op_dict
 {
 	t_op_enum	key;
-	void		(*func)(t_data *);
+	t_data		*(*func)(t_data *);
 	const char	*str;
 }				t_op_dict;
 
-void			execute_operation(t_data *data, t_op_enum op_key);
+t_data			*execute_op(t_data *data, t_op_enum op_key);
 
 #endif // PUSH_SWAP

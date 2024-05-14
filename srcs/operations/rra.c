@@ -6,13 +6,14 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:02 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:19:19 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 14:24:54 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rra(t_data *data)
+t_data	*rra(t_data *data)
 {
 	lst_rotate_foward(data->a);
+	return (data);
 }

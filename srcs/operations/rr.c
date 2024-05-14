@@ -6,14 +6,15 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:08 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:19:16 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 14:24:52 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rr(t_data *data)
+t_data	*rr(t_data *data)
 {
 	ra(data);
 	rb(data);
+	return (data);
 }

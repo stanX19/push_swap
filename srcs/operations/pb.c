@@ -6,13 +6,14 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:19 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:19:06 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 14:24:46 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pb(t_data *data)
+t_data	*pb(t_data *data)
 {
 	lst_push_front(data->b, lst_pop_front(data->a));
+	return (data);
 }

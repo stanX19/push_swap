@@ -6,13 +6,14 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:11 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 12:19:13 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 14:24:49 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rb(t_data *data)
+t_data	*rb(t_data *data)
 {
 	lst_rotate_backward(data->b);
+	return (data);
 }

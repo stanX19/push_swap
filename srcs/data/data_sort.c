@@ -6,13 +6,13 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/04 13:13:51 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 14:30:11 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_largest_idx(t_list *list, int reject_val)
+int	get_largest_idx(t_list *list, int largest_accept_val)
 {
 	t_list	*cpy;
 	int		ret;
@@ -27,7 +27,7 @@ int	get_largest_idx(t_list *list, int reject_val)
 	max_val = 0;
 	while (idx < len)
 	{
-		if (cpy->head->val <= reject_val && cpy->head->val > max_val)
+		if (cpy->head->val <= largest_accept_val && cpy->head->val > max_val)
 		{
 			ret = idx;
 			max_val = cpy->head->val;
@@ -36,121 +36,50 @@ int	get_largest_idx(t_list *list, int reject_val)
 		idx++;
 	}
 	lst_delete(cpy);
-	// if (ret > len / 2)
-	// 	ret = ret - len;
 	return (ret);
 }
 
-static void	rotate_to_top(t_data *data, int *target_idx, int *largest_idx, int len)
+int	get_status(t_list *list)
 {
-	int	vector;
+	t_node	*curr;
+	int		status;
+	int		bit;
 
-	if (*target_idx > len / 2)
-		vector = (len - *target_idx);
-	else
-		vector = -*target_idx;
-	while (vector > 0)
+	curr = list->head;
+	status = 0;
+	bit = 1;
+	while (curr->prev != list->head)
 	{
-		execute_operation(data, RRA);
-		vector--;
+		status += bit * (curr->prev->val > curr->val);
+		bit <<= 1;
+		curr = curr->prev;
 	}
-	while (vector < 0)
-	{
-		execute_operation(data, RA);
-		vector++;
-	}
-	if (*largest_idx >= *target_idx)
-		*largest_idx -= *target_idx;
-	else
-		*largest_idx = len - (*target_idx - *largest_idx);
-	*target_idx = 0;
-	*largest_idx %= len;
+	status += bit * (curr->prev->val > curr->val);
+	return (status);
 }
 
-bool	idx_is_inorder(int idx1, int idx2, int len)
+void	a_sort_3(t_data *data)
 {
-	return (idx1 + 1 == idx2 || (len - idx1 == 1 && idx2 == 0));
-}
+	int	status;
 
-int		idx_distance(int idx1, int idx2, int len)
-{
-	if (idx1 > idx2)
-		ft_int_swap(&idx1, &idx2);
-	return (ft_min(idx2 - idx1, ((len - idx2) + idx1)));
-}
-
-int		idx_rel_pos(int idx_from, int idx_to, int len)
-{
-	if (idx_from < idx_to)
-		return (idx_to - idx_from);
-	else
-		return (idx_to + len - idx_from);
-}
-
-static void	update_largest(t_list *a, int *target_idx, int *largest_idx)
-{
-	*largest_idx = *target_idx;
-	*target_idx = get_largest_idx(a, lst_get_val(a, *largest_idx) - 1);
-}
-
-static void	insertion_sort(t_data *data)
-{
-	int	largest_idx;
-	int	target_idx;
-
-	target_idx = get_largest_idx(data->a, INT_MAX);
-	while (!data_sorted(data) && target_idx >= 0)
-	{
-		update_largest(data->a, &target_idx, &largest_idx);
-		printf("target_idx = %i; largest_idx = %i\n", target_idx, largest_idx);
-		if (target_idx < 0)
-		{
-			largest_idx = get_largest_idx(data->a, INT_MAX);
-			target_idx = (largest_idx + 1) % lst_len(data->a);
-			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			break ;
-		}
-		if (idx_is_inorder(target_idx, largest_idx, lst_len(data->a)))
-		{
-			continue;
-		}
-		// state 1
-		// make target on the top
-		printf("idx_distance = %i\n", idx_distance(target_idx, largest_idx, lst_len(data->a)));
-		printf("idx_rel_pos = %i\n", idx_rel_pos(target_idx, largest_idx, lst_len(data->a)));
-		if (idx_rel_pos(target_idx, largest_idx, lst_len(data->a)) == 2)
-		{
-			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			execute_operation(data, SA);
-			target_idx = 0;
-			continue ;
-		}
-		if (idx_distance(target_idx, largest_idx, lst_len(data->a)) == 1)
-		{
-			if (idx_rel_pos(target_idx, largest_idx, lst_len(data->a)) > 0)
-				ft_int_swap(&target_idx, &largest_idx);
-			rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-			execute_operation(data, SA);
-			target_idx = 0;
-			continue ;
-		}
-		
-		rotate_to_top(data, &target_idx, &largest_idx, lst_len(data->a));
-		if (data_sorted(data))
-			break ;
-		// state 2
-		// push to b
-		execute_operation(data, PB);
-		largest_idx -= 1;
-		// rotate such that prev largest is at top of a
-		rotate_to_top(data, &largest_idx, &target_idx, lst_len(data->a));
-		// push back to a
-		execute_operation(data, PA);
-		target_idx = 0;
-	}
+	status = get_status(data->a);
+	if (status == 2)
+		execute_op(data, RRA);
+	else if (status == 3)
+		execute_op(execute_op(data, SA), RA);
+	else if (status == 4)
+		execute_op(data, RA);
+	else if (status == 5)
+		execute_op(data, SA);
+	else if (status == 6)
+		execute_op(execute_op(data, SA), RRA);
 }
 
 void	data_sort(t_data *data)
 {
-	insertion_sort(data);
+	while (lst_len(data->a) > 3)
+		execute_op(data, PB);
+	a_sort_3(data);
+	while (lst_len(data->b) > 0)
+		execute_op(data, PA);
 }
