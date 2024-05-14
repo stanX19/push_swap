@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/30 15:55:49 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/14 17:35:45 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_list
 {
 	t_node	*head;
+	t_node	*curr;
 }			t_list;
 
 void		lst_push_front(t_list *list, t_node *node);
@@ -30,6 +31,7 @@ void		lst_rotate_foward(t_list *list);
 bool		lst_is_sorted(t_list *list);
 t_list		*lst_copy(t_list *list);
 t_list		*lst_new(void);
+t_node		*lst_iter(t_list *list);
 size_t		lst_len(t_list *list);
 void		lst_delete(t_list *list);
 void		lst_print(t_list *list);

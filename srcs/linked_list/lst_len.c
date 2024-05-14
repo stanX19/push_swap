@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:28:47 by stan              #+#    #+#             */
-/*   Updated: 2024/05/04 12:28:47 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 17:36:28 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 
 size_t	lst_len(t_list *list)
 {
-	t_node	*curr;
-	size_t	ret;
+	size_t	len;
 
 	if (!list || !list->head)
 		return (0);
-	curr = list->head;
-	ret = 1;
-	while (curr->next != list->head)
-	{
-		curr = curr->next;
-		ret++;
-	}
-	return (ret);
+	len = 0;
+	while (lst_iter(list))
+		len++;
+	return (len);
 }

@@ -6,36 +6,70 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/14 14:30:11 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 17:43:17 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	get_largest_idx(t_list *list, int largest_accept_val)
+int	get_largest_idx(t_list *list, int max_accept)
 {
-	t_list	*cpy;
 	int		ret;
 	int		idx;
-	int		len;
 	int		max_val;
 
-	cpy = lst_copy(list);
 	ret = -1;
 	idx = 0;
-	len = lst_len(cpy);
-	max_val = 0;
-	while (idx < len)
+	max_val = INT_MIN;
+	while (lst_iter(list))
 	{
-		if (cpy->head->val <= largest_accept_val && cpy->head->val > max_val)
+		if (list->curr->val <= max_accept && list->curr->val > max_val)
 		{
 			ret = idx;
-			max_val = cpy->head->val;
+			max_val = list->curr->val;
 		}
-		lst_rotate_backward(cpy);
 		idx++;
 	}
-	lst_delete(cpy);
+	return (ret);
+}
+int	get_smallest_idx(t_list *list)
+{
+	int		ret;
+	int		idx;
+	int		min_val;
+
+	ret = -1;
+	idx = 0;
+	min_val = INT_MAX;
+	while (lst_iter(list))
+	{
+		if (list->curr->val < min_val)
+		{
+			ret = idx;
+			min_val = list->curr->val;
+		}
+		idx++;
+	}
+	return (ret);
+}
+int	get_lowest_cost_idx(t_list *list)
+{
+	int		ret;
+	int		idx;
+	int		min_val;
+
+	ret = -1;
+	idx = 0;
+	min_val = INT_MAX;
+	while (lst_iter(list))
+	{
+		if (list->curr->cost < min_val)
+		{
+			ret = idx;
+			min_val = list->curr->cost;
+		}
+		idx++;
+	}
 	return (ret);
 }
 
@@ -75,11 +109,61 @@ void	a_sort_3(t_data *data)
 		execute_op(execute_op(data, SA), RRA);
 }
 
+// cost = steps needed to push x into a + steps needed for a to be sorted
+void	calculate_cost(t_data *data)
+{
+	int		i;
+	int		max_a;
+	t_node	*x;
+
+	max_a = lst_len(data->a) - 1;
+	i = 0;
+	while (lst_iter(data->b))
+	{
+		x = data->b->curr;
+		x->cost = 1 + i + ft_abs(max_a - get_largest_idx(data->a, x->val - 1));
+		i++;
+	}
+}
+
+void	rotate_to_top(t_data *data, int idx_a, int idx_b)
+{
+	int len_a;
+	int len_b;
+	
+	len_a = lst_len(data->a);
+	len_b = lst_len(data->b);
+	if (len_a)
+		idx_a %= len_a;
+	if (len_b)
+		idx_b %= len_b;
+	while (idx_b--)
+		execute_op(data, RB);
+	while (idx_a--)
+		execute_op(data, RA);
+}
+
+void	push_lowest_cost(t_data *data)
+{
+	int	lowest_cost_idx;
+	int	target_a_idx;
+
+	lowest_cost_idx = get_lowest_cost_idx(data->b);
+	target_a_idx = get_largest_idx(data->a, lst_get_val(data->b,
+				lowest_cost_idx));
+	rotate_to_top(data, target_a_idx + 1, lowest_cost_idx);
+	execute_op(data, PA);
+}
+
 void	data_sort(t_data *data)
 {
 	while (lst_len(data->a) > 3)
 		execute_op(data, PB);
 	a_sort_3(data);
 	while (lst_len(data->b) > 0)
-		execute_op(data, PA);
+	{
+		calculate_cost(data);
+		push_lowest_cost(data);
+	}
+	rotate_to_top(data, get_smallest_idx(data->a), 0);
 }

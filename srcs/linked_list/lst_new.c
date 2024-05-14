@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_new.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:57 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:21:08 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/14 17:15:47 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ t_list	*lst_new(void)
 {
 	t_list	*list;
 
-	list = (t_list *)malloc(sizeof(t_list));
-	if (list)
-		list->head = NULL;
+	list = (t_list *)ft_calloc(sizeof(t_list), 1);
 	return (list);
 }
