@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/14 14:24:07 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/14 19:04:48 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_data
 t_data			*data_copy(t_data *data);
 void			delete_data(t_data *data);
 t_data			*init_data(int argc, const char **argv);
-bool			data_sorted(t_data *data);
+bool			data_is_sorted(t_data *data);
 void			data_sort(t_data *data);
 void			data_print(t_data *data);
 
