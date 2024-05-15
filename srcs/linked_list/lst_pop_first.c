@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:49 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/14 17:39:29 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/15 19:48:22 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ t_node	*lst_pop_front(t_list *list)
 		list->head->prev = ret->prev;
 		ret->prev->next = list->head;
 	}
-	return (pop_node(ret));
+	return (node_pop(ret));
 }

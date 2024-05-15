@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/14 19:15:46 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/15 20:24:18 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,12 +202,28 @@ void	push_lowest_cost(t_data *data)
 	execute_op(data, PA);
 }
 
+int	lst_median(t_list *list)
+{
+	int		ret;
+	t_list	*cpy;
+	
+	cpy = lst_sort(lst_copy(list));
+	ret = lst_get_val(cpy, lst_len(cpy) / 2);
+	lst_delete(cpy);
+	return (ret);
+}
+
 void	data_sort(t_data *data)
 {
 	if (data_is_sorted(data))
 		return ;
 	while (lst_len(data->a) > 3)
-		execute_op(data, PB);
+	{	
+		if (lst_get_val(data->a, 0) < lst_median(data->a))
+			execute_op(data, PB);
+		else
+			execute_op(data, RA);
+	}
 	a_sort_3(data);
 	while (lst_len(data->b) > 0)
 	{

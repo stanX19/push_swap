@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pop_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:17:38 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:17:57 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/15 19:48:22 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*pop_node(t_node *node)
+t_node	*node_pop(t_node *node)
 {
 	if (!node)
 		return (NULL);

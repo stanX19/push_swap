@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/14 19:43:45 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/15 20:24:35 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_data	*execute_op(t_data *data, t_op_enum op_key)
 		if (op_dict[idx].key == op_key)
 		{
 			op_dict[idx].func(data);
-			ft_printf("%8i) %4s |\t", count++, op_dict[idx].str);
-			data_print(data);
+			ft_printf("%8i) %4s |\n", count++, op_dict[idx].str);
+			//data_print(data);
 			return (data);
 		}
 		idx++;

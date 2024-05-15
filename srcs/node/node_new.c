@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   new_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:10 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:20:46 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/15 19:48:31 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node	*new_node(int val)
+t_node	*node_new(int val)
 {
 	t_node	*node;
 
