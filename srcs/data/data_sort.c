@@ -6,11 +6,33 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/16 12:42:59 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/16 18:35:55 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+
+int	get_smallest_idx(t_list *list)
+{
+	int	ret;
+	int	idx;
+	int	min_val;
+
+	ret = -1;
+	idx = 0;
+	min_val = INT_MAX;
+	while (lst_iter(list))
+	{
+		if (list->curr->val < min_val)
+		{
+			ret = idx;
+			min_val = list->curr->val;
+		}
+		idx++;
+	}
+	return (ret);
+}
 
 int	get_largest_idx(t_list *list, int max_accept)
 {
@@ -32,26 +54,7 @@ int	get_largest_idx(t_list *list, int max_accept)
 	}
 	return (ret);
 }
-int	get_smallest_idx(t_list *list)
-{
-	int	ret;
-	int	idx;
-	int	min_val;
 
-	ret = -1;
-	idx = 0;
-	min_val = INT_MAX;
-	while (lst_iter(list))
-	{
-		if (list->curr->val < min_val)
-		{
-			ret = idx;
-			min_val = list->curr->val;
-		}
-		idx++;
-	}
-	return (ret);
-}
 int	get_lowest_cost_idx(t_list *list)
 {
 	int	ret;
@@ -97,16 +100,8 @@ void	a_sort_3(t_data *data)
 	int	status;
 
 	status = get_status(data->a);
-	if (status == 2)
-		exec_op_print(data, RRA);
-	else if (status == 3)
-		exec_op_print(exec_op_print(data, SA), RA);
-	else if (status == 4)
-		exec_op_print(data, RA);
-	else if (status == 5)
+	if (status == 3 || status == 5 || status == 6)
 		exec_op_print(data, SA);
-	else if (status == 6)
-		exec_op_print(exec_op_print(data, SA), RRA);
 }
 
 void	rotate_preprocess(t_data *data, int *idx_a, int *idx_b)
@@ -174,14 +169,25 @@ void	rotate_to_top(t_data *data, int idx_a, int idx_b, bool print)
 
 void	push_lowest_cost(t_data *data, bool print)
 {
-	int	lowest_cost_idx;
-	int	target_a_idx;
+	int	idx_b;
+	int	idx_a;
 
-	lowest_cost_idx = get_lowest_cost_idx(data->b);
-	target_a_idx = get_largest_idx(data->a, lst_get_val(data->b,
-				lowest_cost_idx));
-	rotate_to_top(data, target_a_idx + 1, lowest_cost_idx, print);
+	idx_b = get_lowest_cost_idx(data->b);
+	idx_a = get_largest_idx(data->a, lst_get_val(data->b, idx_b));
+	if (idx_a == -1)
+		idx_a = get_smallest_idx(data->a);
+	else
+		idx_a += 1;
+	rotate_to_top(data, idx_a, idx_b, print);
 	execute_op(data, PA, print);
+}
+
+int norm_idx_cost(int idx, int len)
+{
+	if (idx > len / 2)
+		return len - idx;
+	else
+		return idx;
 }
 
 // cost = steps needed to push x into a + steps needed for a to be sorted
@@ -192,14 +198,18 @@ int	calculate_cost(t_data *data, int depth)
 	int		ret;
 	t_node	*x;
 
-	if (depth <= 0 || lst_len(data->b) == 0)
+	if (depth <= 0)
 		return 0;
+	if (lst_len(data->b) == 0)
+		return norm_idx_cost(get_smallest_idx(data->a), lst_len(data->a));
 	idx_b = 0;
 	ret = INT_MAX;
 	while (lst_iter(data->b))
 	{
 		x = data->b->curr;
 		idx_a = get_largest_idx(data->a, x->val - 1) + 1;
+		if (idx_a == -1)
+			idx_a = get_smallest_idx(data->a);
 		rotate_preprocess(data, &idx_a, &idx_b);
 		x->cost = INT_MIN;
 		if (depth - 1 > 0)
@@ -234,15 +244,15 @@ void	data_sort(t_data *data)
 		return ;
 	while (lst_len(data->a) > 3)
 	{	
-		if (lst_get_val(data->a, 0) < lst_median(data->a))
+		//if (lst_get_val(data->a, 0) < lst_median(data->a))
 			exec_op_print(data, PB);
-		else
-			exec_op_print(data, RA);
+		//else
+		//	exec_op_print(data, RA);
 	}
 	a_sort_3(data);
 	while (lst_len(data->b) > 0)
 	{
-		calculate_cost(data, 100);
+		calculate_cost(data, 2);
 		push_lowest_cost(data, true);
 	}
 	rotate_to_top(data, get_smallest_idx(data->a), 0, true);
