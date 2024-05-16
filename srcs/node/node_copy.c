@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_get_val.c                                      :+:      :+:    :+:   */
+/*   node_copy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/30 15:52:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/16 12:03:07 by stan             ###   ########.fr       */
+/*   Created: 2024/04/18 14:18:03 by shatan            #+#    #+#             */
+/*   Updated: 2024/05/16 12:22:04 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	lst_get_val(t_list *lst, int idx)
+t_node	*node_copy(t_node *node)
 {
-	return (lst_get_node(lst, idx)->val);
+	t_node	*cpy;
+
+	cpy = (t_node *)ft_calloc(sizeof(t_node), 1);
+	ft_memcpy(cpy, node, sizeof(t_node));
+	cpy->next = NULL;
+	cpy->prev = NULL;
+	return (cpy);
 }

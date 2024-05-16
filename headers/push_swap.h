@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/14 19:04:48 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/16 12:40:36 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 # include "libft.h"
 # include "list.h"
 # include "node.h"
-
+// # ifndef COST_DEPTH
+// #  define COST_DEPTH 3
+// # endif
 typedef struct s_data
 {
 	t_list		*a;
@@ -93,6 +95,7 @@ typedef struct s_op_dict
 	const char	*str;
 }				t_op_dict;
 
-t_data			*execute_op(t_data *data, t_op_enum op_key);
+t_data			*exec_op_print(t_data *data, t_op_enum op_key);
+t_data			*execute_op(t_data *data, t_op_enum op_key, bool print);
 
 #endif // PUSH_SWAP

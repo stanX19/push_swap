@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:47:24 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/14 19:39:35 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/16 12:30:56 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	data_print(t_data *data)
 	ft_printf("\t\tb: ");
 	lst_print(data->b);
 	ft_printf("\n");
-	usleep(200000);
+	usleep(2000);
 }

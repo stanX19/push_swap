@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_copy.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:21:41 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:22:39 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/16 11:57:38 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ t_list	*lst_copy(t_list *list)
 	if (!list->head)
 		return (copy);
 	src_curr = list->head;
-	lst_append_val(copy, src_curr->val);
+	lst_push_back(copy, node_copy(src_curr));
 	src_curr = src_curr->next;
 	while (src_curr != list->head)
 	{
-		lst_append_val(copy, src_curr->val);
+		lst_push_back(copy, node_copy(src_curr));
 		src_curr = src_curr->next;
 	}
 	return (copy);

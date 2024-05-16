@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/15 20:24:35 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/16 12:31:12 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static const t_op_dict	*get_op_dict(void)
 	return (op_dict);
 }
 
-t_data	*execute_op(t_data *data, t_op_enum op_key)
+t_data	*execute_op(t_data *data, t_op_enum op_key, bool print)
 {
 	static int		count;
 	const t_op_dict	*op_dict;
@@ -46,14 +46,22 @@ t_data	*execute_op(t_data *data, t_op_enum op_key)
 		if (op_dict[idx].key == op_key)
 		{
 			op_dict[idx].func(data);
-			ft_printf("%8i) %4s |\n", count++, op_dict[idx].str);
-			//data_print(data);
+			if (print)
+			{
+				ft_printf("%8i) %4s |\t", count++, op_dict[idx].str);
+				data_print(data);
+			}
 			return (data);
 		}
 		idx++;
 	}
 	ft_printf("Error: no such operation %i\n", op_key);
 	return (NULL);
+}
+
+t_data	*exec_op_print(t_data *data, t_op_enum op_key)
+{
+	return execute_op(data, op_key, true);
 }
 
 t_data	*execute_operation_str(t_data *data, const char *op_str)
