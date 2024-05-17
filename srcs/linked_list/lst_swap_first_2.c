@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:18:22 by shatan            #+#    #+#             */
-/*   Updated: 2024/04/18 14:18:23 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/17 14:53:23 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void	lst_swap_first_2(t_list *list)
 {
 	if (!list || !list->head)
 		return ;
-	node_swap_val_with_next(list->head);
+	node_swap_with_next(list->head);
 }

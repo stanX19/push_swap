@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_sort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/16 18:35:55 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/17 16:18:11 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,18 +211,37 @@ int	calculate_cost(t_data *data, int depth)
 		if (idx_a == -1)
 			idx_a = get_smallest_idx(data->a);
 		rotate_preprocess(data, &idx_a, &idx_b);
-		x->cost = INT_MIN;
-		if (depth - 1 > 0)
-		{
-			t_data *copy = data_copy(data);
-			push_lowest_cost(copy, false);
-			x->cost = 1 + ft_abs(idx_b - idx_a) + calculate_cost(copy, depth - 1);
-			delete_data(copy);
-		}
-		else
-			x->cost = 1 + ft_abs(idx_b - idx_a);
+		x->cost = 1 + ft_abs(idx_b - idx_a);
 		ret = ft_min(ret, x->cost);
 		idx_b++;
+	}
+	if (depth - 1 <= 0)
+		return ret;
+	t_list *b_sorted = lst_sort_cost(lst_copy(data->a));
+	int max_accept;
+	if (lst_len(b_sorted) >= 10)
+		max_accept = lst_get_node(b_sorted, 10)->cost;
+	else
+		max_accept = INT_MAX;
+	lst_print(b_sorted);
+	lst_delete(b_sorted);
+	printf("DEBUG: max_accept = %i\n", max_accept);
+	ret = INT_MAX;
+	while (lst_iter(data->b))
+	{
+		x = data->b->curr;
+		if (x->cost > max_accept)
+		{
+			x->cost += (lst_len(data->a) + lst_len(data->b)) * (depth - 1);
+			continue ;
+		}
+		int record = x->cost;
+		x->cost = INT_MIN;
+		t_data *copy = data_copy(data);
+		push_lowest_cost(copy, false);
+		x->cost = record + calculate_cost(copy, depth - 1);
+		ret = ft_min(ret, x->cost);
+		delete_data(copy);
 	}
 	return ret;
 }
@@ -232,7 +251,7 @@ int	lst_median(t_list *list)
 	int		ret;
 	t_list	*cpy;
 	
-	cpy = lst_sort(lst_copy(list));
+	cpy = lst_sort_val(lst_copy(list));
 	ret = lst_get_val(cpy, lst_len(cpy) / 2);
 	lst_delete(cpy);
 	return (ret);
@@ -244,16 +263,20 @@ void	data_sort(t_data *data)
 		return ;
 	while (lst_len(data->a) > 3)
 	{	
-		//if (lst_get_val(data->a, 0) < lst_median(data->a))
+		if (lst_get_val(data->a, 0) < lst_median(data->a))
 			exec_op_print(data, PB);
-		//else
-		//	exec_op_print(data, RA);
+		else
+			exec_op_print(data, RA);
 	}
 	a_sort_3(data);
 	while (lst_len(data->b) > 0)
 	{
-		calculate_cost(data, 2);
-		push_lowest_cost(data, true);
-	}
+		int depth;
+		depth = (double)ft_pow(500 - lst_len(data->b), 2) / 250.0 + 1;
+		printf("DEBUG: depth = %i\n", depth);
+		
+        calculate_cost(data, depth);
+        push_lowest_cost(data, true);
+    }
 	rotate_to_top(data, get_smallest_idx(data->a), 0, true);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:09 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/16 12:22:16 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/17 14:53:23 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ t_node				*node_copy(t_node *node);
 void				node_delete(t_node *node);
 void				node_link(t_node *prev, t_node *next);
 void				node_swap_val(t_node *n1, t_node *n2);
-void				node_swap_val_with_next(t_node *node);
+void				node_swap_with_next(t_node *node);
 
 #endif // NODE

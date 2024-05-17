@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/16 12:03:43 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/17 15:04:54 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 # define LIST_H
-# include <stdbool.h>
 # include "node.h"
+# include <stdbool.h>
 
 typedef struct s_list
 {
@@ -38,6 +38,7 @@ void		lst_print(t_list *list);
 int			lst_find_val(t_list *lst, int val);
 int			lst_get_val(t_list *lst, int idx);
 t_node		*lst_get_node(t_list *lst, int idx);
-t_list		*lst_sort(t_list *list);
+t_list		*lst_sort_val(t_list *list);
+t_list		*lst_sort_cost(t_list *list);
 
 #endif // LIST
