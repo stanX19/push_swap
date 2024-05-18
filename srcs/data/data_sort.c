@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/17 17:17:08 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 12:00:29 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,15 @@ int	norm_idx_cost(int idx, int len)
 		return (idx);
 }
 
+int	idx_to_cost(int idx_a, int idx_b)
+{
+	if (ft_sign(idx_a) == ft_sign(idx_b))
+	{
+		return ft_max(ft_abs(idx_a), ft_abs(idx_b)) + 1;
+	}
+	return ft_abs(idx_a) + ft_abs(idx_b) + 1;
+}
+
 // cost = steps needed to push x into a + steps needed for a to be sorted
 int	calculate_cost(t_data *data, int depth)
 {
@@ -214,20 +223,22 @@ int	calculate_cost(t_data *data, int depth)
 		if (idx_a == -1)
 			idx_a = get_smallest_idx(data->a);
 		rotate_preprocess(data, &idx_a, &idx_b);
-		x->cost = 1 + ft_abs(idx_b - idx_a);
+		x->cost = idx_to_cost(idx_a, idx_b);
 		ret = ft_min(ret, x->cost);
 		idx_b++;
 	}
 	if (depth - 1 <= 0)
 		return (ret);
-	b_sorted = lst_sort_cost(lst_copy(data->a));
-	if (lst_len(b_sorted) >= 10)
+	b_sorted = lst_sort_cost(lst_copy(data->b));
+	if (lst_len(b_sorted) > 10)
 		max_accept = lst_get_node(b_sorted, 10)->cost;
 	else
 		max_accept = INT_MAX;
-	lst_print(b_sorted);
 	lst_delete(b_sorted);
 	ret = INT_MAX;
+	
+	// currently multiple values can match max accept cuz cost can be same
+	// resulting in a low runtime when lst b is large.
 	while (lst_iter(data->b))
 	{
 		x = data->b->curr;
@@ -263,7 +274,6 @@ void	data_sort(t_data *data)
 	int		total_len;
 	t_list	*sorted;
 	int		threshold;
-		int depth;
 
 	if (data_is_sorted(data))
 		return ;
@@ -273,7 +283,9 @@ void	data_sort(t_data *data)
 	{
 		threshold = lst_get_val(sorted, ft_min(total_len - lst_len(data->a)
 					+ (total_len / 11), total_len - 1));
-		if (lst_get_val(data->a, 0) < threshold)
+		// printf("DEBUG: threshold = %i\n", threshold);
+
+		if (lst_get_val(data->a, 0) <= threshold)
 			exec_op_print(data, PB);
 		else
 			exec_op_print(data, RA);
@@ -282,11 +294,7 @@ void	data_sort(t_data *data)
 	a_sort_3(data);
 	while (lst_len(data->b) > 0)
 	{
-		// depth = (double)ft_pow(total_len - lst_len(data->b), 2) / total_len * 2
-		// 	+ 1;
-		depth = 1;
-		printf("DEBUG: depth = %i\n", depth);
-		calculate_cost(data, depth);
+		calculate_cost(data, 3);
 		push_lowest_cost(data, true);
 	}
 	rotate_to_top(data, get_smallest_idx(data->a), 0, true);
