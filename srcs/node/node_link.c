@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   node_link.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/18 14:07:15 by shatan            #+#    #+#             */
+/*   Updated: 2024/05/18 14:07:21 by shatan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-void node_link(t_node *prev, t_node* next)
+void	node_link(t_node *prev, t_node *next)
 {
 	prev->next = next;
 	next->prev = prev;

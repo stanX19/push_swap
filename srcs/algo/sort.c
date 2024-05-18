@@ -6,13 +6,11 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 13:48:12 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 14:07:30 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-
 
 void	push_swap(t_data *data)
 {

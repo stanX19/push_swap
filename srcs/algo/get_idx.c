@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:25:59 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 13:26:04 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 14:07:46 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int	get_largest_idx(t_list *list, int max_accept)
 
 int	get_lowest_cost_idx(t_list *list)
 {
-	int ret;
-	int idx;
-	int min_val;
+	int	ret;
+	int	idx;
+	int	min_val;
 
 	ret = -1;
 	idx = 0;

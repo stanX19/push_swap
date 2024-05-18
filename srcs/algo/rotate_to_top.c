@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:23:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 13:23:08 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 14:07:39 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	rotate_negative(t_data *data, int *idx_a, int *idx_b, bool print)
 		(*idx_a)++;
 	}
 }
+
 void	rotate_to_top(t_data *data, int idx_a, int idx_b, bool print)
 {
 	rotate_preprocess(data, &idx_a, &idx_b);

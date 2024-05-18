@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/18 13:49:55 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 14:09:26 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 
 static const t_op_dict	*get_op_dict(void)
 {
-	static const t_op_dict op_dict[] = {
-		{SA, sa, "sa"},
-		{SB, sb, "sb"},
-		{SS, ss, "ss"},
-		{PA, pa, "pa"},
-		{PB, pb, "pb"},
-		{RA, ra, "ra"},
-		{RB, rb, "rb"},
-		{RR, rr, "rr"},
-		{RRA, rra, "rra"},
-		{RRB, rrb, "rrb"},
-		{RRR, rrr, "rrr"},
-		{0, NULL, NULL},
+	static const t_op_dict	op_dict[] = {
+	{SA, sa, "sa"},
+	{SB, sb, "sb"},
+	{SS, ss, "ss"},
+	{PA, pa, "pa"},
+	{PB, pb, "pb"},
+	{RA, ra, "ra"},
+	{RB, rb, "rb"},
+	{RR, rr, "rr"},
+	{RRA, rra, "rra"},
+	{RRB, rrb, "rrb"},
+	{RRR, rrr, "rrr"},
+	{0, NULL, NULL},
 	};
+
 	return (op_dict);
 }
 
@@ -61,7 +62,7 @@ t_data	*execute_op(t_data *data, t_op_enum op_key, bool print)
 
 t_data	*exec_op_print(t_data *data, t_op_enum op_key)
 {
-	return execute_op(data, op_key, true);
+	return (execute_op(data, op_key, true));
 }
 
 t_data	*execute_operation_str(t_data *data, const char *op_str)

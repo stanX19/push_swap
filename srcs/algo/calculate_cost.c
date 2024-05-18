@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:20:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 13:43:10 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 14:08:14 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	propagate(t_data *data, int depth, size_t max_branch)
 		max_accept_cost = lst_get_node(sorted_b, max_branch)->cost;
 	else
 		max_accept_cost = INT_MAX;
-	
 	lst_delete(sorted_b);
 	min_cost = INT_MAX;
 	while (lst_iter(data->b))
@@ -49,7 +48,8 @@ int	propagate(t_data *data, int depth, size_t max_branch)
 			x->cost += (lst_len(data->a) + lst_len(data->b)) * (depth - 1);
 			continue ;
 		}
-		min_cost = ft_min(min_cost, propagate_subtree(data, x, depth, max_branch));
+		min_cost = ft_min(min_cost, propagate_subtree(data, x, depth,
+					max_branch));
 	}
 	return (min_cost);
 }
