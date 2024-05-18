@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/17 15:20:37 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/18 13:49:55 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ t_data	*execute_op(t_data *data, t_op_enum op_key, bool print)
 			op_dict[idx].func(data);
 			if (print)
 			{
-				ft_printf("%8i) %4s |\n", count++, op_dict[idx].str);
-				//data_print(data);
+				ft_printf("%8i) %4s |\t", count++, op_dict[idx].str);
+				data_print(data);
 			}
 			return (data);
 		}
