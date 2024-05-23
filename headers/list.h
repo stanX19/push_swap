@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 13:10:02 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/23 23:05:00 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ size_t		lst_len(t_list *list);
 void		lst_delete(t_list *list);
 void		lst_print(t_list *list);
 int			lst_find_val(t_list *lst, int val);
+t_node		*lst_find_first_eq(t_list *lst, int val);
+t_node		*lst_find_first_leq(t_list *sorted_lst, int val);
 int			lst_get_val(t_list *lst, int idx);
 t_node		*lst_get_node(t_list *lst, int idx);
 t_list		*lst_sort_val(t_list *list);

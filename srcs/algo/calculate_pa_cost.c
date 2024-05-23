@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   calculate_cost.c                                   :+:      :+:    :+:   */
+/*   calculate_pa_cost.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:20:33 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 14:08:14 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/23 23:22:23 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	propagate_subtree(t_data *data, t_node *x, int depth, size_t max_branch)
+static int	propagate_subtree(t_data *data, t_node *x, int depth, size_t max_branch)
 {
 	int		original_cost;
 	t_data	*copy;
@@ -20,13 +20,13 @@ int	propagate_subtree(t_data *data, t_node *x, int depth, size_t max_branch)
 	original_cost = x->cost;
 	x->cost = INT_MIN;
 	copy = data_copy(data);
-	push_lowest_cost(copy, false);
-	x->cost = original_cost + calculate_cost(copy, depth - 1, max_branch);
+	pa_lowest_cost(copy, false);
+	x->cost = original_cost + calculate_pa_cost(copy, depth - 1, max_branch);
 	delete_data(copy);
 	return (x->cost);
 }
 
-int	propagate(t_data *data, int depth, size_t max_branch)
+static int	propagate(t_data *data, int depth, size_t max_branch)
 {
 	t_list	*sorted_b;
 	int		max_accept_cost;
@@ -45,7 +45,7 @@ int	propagate(t_data *data, int depth, size_t max_branch)
 		x = data->b->curr;
 		if (x->cost > max_accept_cost)
 		{
-			x->cost += (lst_len(data->a) + lst_len(data->b)) * (depth - 1);
+			x->cost = INT_MAX;
 			continue ;
 		}
 		min_cost = ft_min(min_cost, propagate_subtree(data, x, depth,
@@ -55,7 +55,7 @@ int	propagate(t_data *data, int depth, size_t max_branch)
 }
 
 // cost = steps needed to push x into a + steps needed for a to be sorted
-int	calculate_cost(t_data *data, int depth, size_t max_branch)
+int	calculate_pa_cost(t_data *data, int depth, size_t max_branch)
 {
 	int		idx_b;
 	int		idx_a;
