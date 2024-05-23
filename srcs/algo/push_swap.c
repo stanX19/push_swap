@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/23 23:22:49 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/23 23:43:50 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	push_swap(t_data *data)
 	while (lst_len(data->a) > 3)
 	{
 		threshold = lst_get_val(sorted, ft_min(total_len - lst_len(data->a)
-					+ (total_len / 20), total_len - 1));
+					+ (total_len / 11), total_len - 1));
 		calculate_pb_cost(data, threshold);
 		pb_lowest_cost(data, true);
 	}
