@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/23 23:12:52 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/24 13:45:55 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 # include "libft.h"
 # include "list.h"
 # include "node.h"
-// # ifndef COST_DEPTH
-// #  define COST_DEPTH 3
-// # endif
+# ifdef DISPLAY
+#  undef DISPLAY
+#  define DISPLAY true
+# else
+#  define DISPLAY false
+# endif
 typedef struct s_data
 {
 	t_list		*a;

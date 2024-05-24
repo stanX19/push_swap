@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   push_swap_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:16:34 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/18 13:22:06 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/24 12:09:43 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ int	main(int argc, const char **argv)
 	data = init_data(argc, argv);
 	if (!data)
 		return (1);
-	lst_print(data->a);
-	ft_putendl_fd("", 1);
+	//lst_print(data->a);
+	//ft_putendl_fd("", 1);
 	push_swap(data);
-	lst_print(data->a);
-	ft_putendl_fd("", 1);
+	//lst_print(data->a);
+	//ft_putendl_fd("", 1);
 	delete_data(data);
 	return (0);
 }

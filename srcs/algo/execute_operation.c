@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_operation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/18 14:09:26 by shatan           ###   ########.fr       */
+/*   Updated: 2024/05/24 15:33:04 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,37 @@ static const t_op_dict	*get_op_dict(void)
 	return (op_dict);
 }
 
+static void	print_op(t_data *data, const char *op_str, int count)
+{
+	static int		display = -1;
+
+	if (display == -1)
+		display = ft_path_exists("./_DISPLAY");
+	if (display)
+	{
+		ft_printf("%8i) %4s |\t", count, op_str);
+		data_print(data);
+	}
+	else
+		ft_printf("%s\n", op_str);
+}
+
 t_data	*execute_op(t_data *data, t_op_enum op_key, bool print)
 {
-	static int		count;
-	const t_op_dict	*op_dict;
+	static int		count = 0;
+	const t_op_dict	*op_dict = get_op_dict();
 	int				idx;
 
-	op_dict = get_op_dict();
-	idx = 0;
 	if (data == NULL)
 		return (NULL);
+	idx = 0;
 	while (op_dict[idx].func)
 	{
 		if (op_dict[idx].key == op_key)
 		{
 			op_dict[idx].func(data);
 			if (print)
-			{
-				ft_printf("%8i) %4s |\t", count++, op_dict[idx].str);
-				data_print(data);
-			}
+				print_op(data, op_dict[idx].str, count++);
 			return (data);
 		}
 		idx++;

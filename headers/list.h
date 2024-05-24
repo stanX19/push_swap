@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:13 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/23 23:05:00 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/24 12:18:35 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_list
 {
 	t_node	*head;
 	t_node	*curr;
+	int		idx;
 }			t_list;
 
 void		lst_push_front(t_list *list, t_node *node);
