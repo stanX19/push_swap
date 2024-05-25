@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/05/25 17:36:34 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/25 18:22:04 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	init_list_a(t_list *a, const char **tokens, int len)
 	ss_destroy(ss);
 	if (errno == 0 && lst_len(a) > 0)
 		return (0);
-	ft_putstr_fd("Error\n", 2);
+	ft_dprintf(2, "Error\n");
 	return (-1);
 }
 
