@@ -6,26 +6,25 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/24 15:07:44 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/25 16:45:04 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#define CHUNK_SIZE 100
 
 void	part1(t_data *data)
 {
 	int		total_len;
-	int		chunk_size;
 	int		threshold;
 	t_list	*sorted;
 
 	total_len = lst_len(data->a);
-	chunk_size = 45;
 	sorted = lst_sort_val(lst_copy(data->a));
 	while (lst_len(data->a) > 3 && !lst_is_sorted(data->a))
 	{
 		threshold = lst_get_val(sorted, ft_min(total_len - lst_len(data->a)
-					+ chunk_size, total_len - 1));
+					+ CHUNK_SIZE, total_len - 1));
 		calculate_pb_cost(data, threshold);
 		pb_lowest_cost(data, true);
 	}
@@ -34,14 +33,17 @@ void	part1(t_data *data)
 
 void	part2(t_data *data)
 {
-	int	depth;
+	int		threshold;
+	t_list	*sorted;
 
+	sorted = lst_sort_val(lst_copy(data->b));
 	while (lst_len(data->b) > 0)
 	{
-		depth = 1;//(int)(0.4 * 500.0 / (lst_len(data->b) + 90.0) + 2);
-		calculate_pa_cost(data, depth, 10);
+		threshold = INT_MIN;
+		calculate_pa_cost(data, threshold);
 		pa_lowest_cost(data, true);
 	}
+	lst_delete(sorted);
 }
 
 void	push_swap(t_data *data)

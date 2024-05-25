@@ -6,7 +6,7 @@
 /*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/24 13:45:55 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/25 16:22:32 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_data
 }				t_data;
 
 // algo
-int				calculate_pa_cost(t_data *data, int depth, size_t max_branch);
-int				calculate_pb_cost(t_data *data, int max_accept_val);
+void			calculate_pa_cost(t_data *data, int min_accept_val);
+void			calculate_pb_cost(t_data *data, int max_accept_val);
 void			rotate_preprocess(t_data *data, int *idx_a, int *idx_b);
 void			rotate_to_top(t_data *data, int idx_a, int idx_b, bool print);
 void			pa_lowest_cost(t_data *data, bool print);
