@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 00:23:21 by stan              #+#    #+#             */
-/*   Updated: 2024/05/25 18:22:04 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/29 12:52:06 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	init_list_a(t_list *a, const char **tokens, int len)
 	return (-1);
 }
 
-t_data	*init_data(int argc, const char **argv)
+t_data	*data_init(int argc, const char **argv)
 {
 	t_data	*ret;
 
@@ -46,7 +46,7 @@ t_data	*init_data(int argc, const char **argv)
 	ret->b = lst_new();
 	if (init_list_a(ret->a, ++argv, --argc))
 	{
-		delete_data(ret);
+		data_delete(ret);
 		ret = NULL;
 	}
 	return (ret);

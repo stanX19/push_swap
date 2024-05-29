@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 14:26:03 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/25 16:22:32 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/29 13:17:30 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # else
 #  define DISPLAY false
 # endif
+
 typedef struct s_data
 {
 	t_list		*a;
@@ -44,8 +45,8 @@ void			push_swap(t_data *data);
 
 // data
 t_data			*data_copy(t_data *data);
-void			delete_data(t_data *data);
-t_data			*init_data(int argc, const char **argv);
+void			data_delete(t_data *data);
+t_data			*data_init(int argc, const char **argv);
 bool			data_is_sorted(t_data *data);
 void			data_print(t_data *data);
 
@@ -115,5 +116,7 @@ typedef struct s_op_dict
 
 t_data			*exec_op_print(t_data *data, t_op_enum op_key);
 t_data			*execute_op(t_data *data, t_op_enum op_key, bool print);
+t_data			*execute_str_op(t_data *data,
+					const char *op_str, bool print);
 
 #endif // PUSH_SWAP

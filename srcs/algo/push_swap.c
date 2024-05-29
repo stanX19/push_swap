@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 14:58:14 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/25 16:45:04 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/29 13:16:50 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	part2(t_data *data)
 
 void	push_swap(t_data *data)
 {
-
 	if (data_is_sorted(data))
 		return ;
 	part1(data);

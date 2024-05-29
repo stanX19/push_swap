@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_operation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
+/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/24 15:33:04 by stan             ###   ########.fr       */
+/*   Updated: 2024/05/29 12:59:07 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_data	*execute_op(t_data *data, t_op_enum op_key, bool print)
 		idx++;
 	}
 	ft_printf("Error: no such operation %i\n", op_key);
+	errno = EINVAL;
 	return (NULL);
 }
 
@@ -76,7 +77,7 @@ t_data	*exec_op_print(t_data *data, t_op_enum op_key)
 	return (execute_op(data, op_key, true));
 }
 
-t_data	*execute_operation_str(t_data *data, const char *op_str)
+t_data	*execute_str_op(t_data *data, const char *op_str, bool print)
 {
 	const t_op_dict	*op_dict;
 	int				idx;
@@ -90,11 +91,12 @@ t_data	*execute_operation_str(t_data *data, const char *op_str)
 		if (ft_strequ(op_dict[idx].str, op_str))
 		{
 			op_dict[idx].func(data);
-			ft_printf("%s\n", op_dict[idx].str);
+			if (print)
+				ft_printf("%s\n", op_dict[idx].str);
 			return (data);
 		}
 		idx++;
 	}
-	ft_printf("Error: no such operation: %s\n", op_str);
+	errno = EINVAL;
 	return (NULL);
 }

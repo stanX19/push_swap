@@ -1,5 +1,5 @@
 SRCDIR		= srcs
-SRCS		:= $(shell find $(SRCDIR) -name '*.c')
+SRCS		:= $(wildcard $(SRCDIR)/**/*.c)
 
 OBJDIR		= objs
 OBJDIRS		= $(sort $(dir $(OBJS)))
@@ -35,10 +35,15 @@ run: all
 	./$(NAME) $(ARGV)
 	@$(RM) _DISPLAY
 
-$(NAME): $(LIBS) $(OBJDIRS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
+$(NAME): $(LIBS) $(OBJDIRS) $(OBJS) srcs/push_swap_main.c checker
+	$(CC) $(CFLAGS) srcs/push_swap_main.c $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)
 
 all: $(NAME)
+
+bonus: checker
+
+checker: $(LIBS) $(OBJDIRS) $(OBJS) srcs/checker_main.c
+	$(CC) $(CFLAGS) srcs/checker_main.c $(OBJS) $(IFLAGS) $(LIBS) -o checker
 
 $(OBJDIRS):
 	mkdir -p $@
@@ -88,10 +93,17 @@ $(LIBFT_DIR):
 init_libft: $(LIBFT_DIR)
 
 TESTDIR		= ps_tester
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S), Linux)
+	TEST_SH	= push_swap_test_linux.sh
+else
+    TEST_SH	= push_swap_test.sh
+endif
 $(TESTDIR):
 	git clone https://github.com/gemartin99/Push-Swap-Tester.git $(TESTDIR)
+
 test: $(TESTDIR) all
 	cp -r push_swap $(TESTDIR)/push_swap
-	cd $(TESTDIR); bash push_swap_test_linux.sh 1 200;
+	cd $(TESTDIR); bash $(TEST_SH) 1 200;
 
 .PHONY: all clean fclean re bonus push .c.o
