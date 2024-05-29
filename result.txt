@@ -3361,3 +3361,18 @@ Test [0;39m[1;92m[5/5] [0;97m200/200[1;92m Congrats , all tests have been co
 [1;91m2496 .[KO][0;39m
 [1;91m2497 .[KO][0;39m
 [1;91m2498 .[KO][0;39m
+[1;91m2499 .[KO][0;39m
+[1;91m2500 .[KO][0;39m
+[1;91m2500 [KO LEAKS] [0;39m
+[1;92m
+OK[0;97m TESTS 2472/2500
+[1;91m
+KO[0;97m TESTS 28/2500
+[0;96m
+Check traces /Users/shatan/Desktop/push_swap/ps_tester/traces.txt
+[1;92m
+OK[0;97m TESTS 0/500
+[1;91m
+KO[0;97m TESTS 500/500
+[0;96m
+Check traces /Users/shatan/Desktop/push_swap/ps_tester/traces.txt

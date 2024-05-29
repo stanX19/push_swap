@@ -62,6 +62,8 @@ fclean:	clean
 	@$(RM) $(TESTDIR)
 	@$(RM) $(OBJDIRS)
 	@$(RM) ./a.out
+	@$(RM) *.dSYM
+
 
 re: fclean $(NAME)
 
