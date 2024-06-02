@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_main.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: stan <shatan@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:16:34 by shatan            #+#    #+#             */
-/*   Updated: 2024/05/29 12:52:06 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/02 14:30:07 by stan             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	main(int argc, const char **argv)
 
 	data = data_init(argc, argv);
 	if (!data)
+	{
+		ft_dprintf(2, "Error\n");
 		return (1);
+	}
 	push_swap(data);
 	data_delete(data);
 	return (0);
