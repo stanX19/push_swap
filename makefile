@@ -19,7 +19,7 @@ LIBS		= $(LIBFT)
 IFLAGS		:= -I. $(HEADERS_INC)
 
 CC			= gcc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS		= -Wall -Wextra -Werror #-fsanitize=address -g3
 AR			= ar -rcs
 RM			= rm -rf
 UP			= \033[1A
@@ -31,9 +31,7 @@ ARGV		= -65 -233 -206 -34 -239 159 -66 -73 85 -32 -28 225 -95 104 122 179 -245 2
 
 
 run: all
-	@touch _DISPLAY
 	./$(NAME) $(ARGV)
-	@$(RM) _DISPLAY
 
 $(NAME): $(LIBS) $(OBJDIRS) $(OBJS) srcs/push_swap_main.c checker
 	$(CC) $(CFLAGS) srcs/push_swap_main.c $(OBJS) $(IFLAGS) $(LIBS) -o $(NAME)

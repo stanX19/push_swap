@@ -6,7 +6,7 @@
 /*   By: shatan <shatan@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 12:26:35 by stan              #+#    #+#             */
-/*   Updated: 2024/05/29 12:59:07 by shatan           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:40:35 by shatan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ static const t_op_dict	*get_op_dict(void)
 
 static void	print_op(t_data *data, const char *op_str, int count)
 {
-	static int		display = -1;
-
-	if (display == -1)
-		display = ft_path_exists("./_DISPLAY");
-	if (display)
+	if (false)
 	{
 		ft_printf("%8i) %4s |\t", count, op_str);
 		data_print(data);
